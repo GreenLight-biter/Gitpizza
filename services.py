@@ -1,19 +1,19 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 
-from database import PizzaDB, RestoranDB, ChefDB, ReviewDB, IngredientDB
+from database import PizzaDB, RestoranDB, ChefDB, ReviewDB, IngredientDB # type: ignore
 from models import Pizza, SostavPizza, Ingredient, Restoran, PizzaUpdate, Review
 
 
 def pizza_db_to_pydantic(pizza_db: PizzaDB) -> Pizza:
     return Pizza(
-        name=pizza_db.name,
-        cheese=pizza_db.cheese,
-        dough=pizza_db.dough,
+        name=pizza_db.name,# type: ignore
+        cheese=pizza_db.cheese,# type: ignore
+        dough=pizza_db.dough,# type: ignore
         sastav=SostavPizza(
             ingredients=[Ingredient(name=ing.name) for ing in pizza_db.ingredients]
         ),
-        secret_ingr=pizza_db.secret_ingr,
+        secret_ingr=pizza_db.secret_ingr,# type: ignore
         restaurant=Restoran(
             name=pizza_db.restaurant.name,
             adres=pizza_db.restaurant.adres
@@ -167,10 +167,10 @@ def update_pizza_full_service(db: Session, pizza_id: int, pizza: Pizza):
         db.commit()
         db.refresh(restaurant)
     
-    pizza_db.name = pizza.name
-    pizza_db.cheese = pizza.cheese
-    pizza_db.dough = pizza.dough
-    pizza_db.secret_ingr = pizza.secret_ingr
+    pizza_db.name = pizza.name# type: ignore
+    pizza_db.cheese = pizza.cheese# type: ignore
+    pizza_db.dough = pizza.dough# type: ignore
+    pizza_db.secret_ingr = pizza.secret_ingr# type: ignore
     pizza_db.restaurant_id = restaurant.id
     
     pizza_db.ingredients.clear()
@@ -242,7 +242,7 @@ def get_restaurant_menu_service(db: Session, restaurant_id: int):
     ).all()
     
     return {
-        "restaurant": Restoran(name=restaurant.name, adres=restaurant.adres),
+        "restaurant": Restoran(name=restaurant.name, adres=restaurant.adres),# type: ignore
         "menu": [pizza_db_to_pydantic(p) for p in restaurant_pizzas],
         "total_pizzas": len(restaurant_pizzas)
     }

@@ -24,7 +24,7 @@ pizza_ingredients = Table(
 
 
 
-class RestoranDB(Base):
+class RestoranDB(Base):  # type: ignore
     __tablename__ = "restaurants"
     
     id = Column(Integer, primary_key=True, index=True)
@@ -38,7 +38,7 @@ class RestoranDB(Base):
 
 
 
-class ChefDB(Base):
+class ChefDB(Base):# type: ignore
     __tablename__ = "chefs"
     
     id = Column(Integer, primary_key=True, index=True)
@@ -50,7 +50,7 @@ class ChefDB(Base):
 
 
 
-class IngredientDB(Base):
+class IngredientDB(Base):# type: ignore
     __tablename__ = "ingredients"
     
     id = Column(Integer, primary_key=True, index=True)
@@ -61,7 +61,7 @@ class IngredientDB(Base):
 
 
 
-class PizzaDB(Base):
+class PizzaDB(Base):# type: ignore
     __tablename__ = "pizzas"
     
     id = Column(Integer, primary_key=True, index=True)
@@ -77,7 +77,7 @@ class PizzaDB(Base):
 
 
 
-class ReviewDB(Base):
+class ReviewDB(Base):# type: ignore
     __tablename__ = "reviews"
     
     id = Column(Integer, primary_key=True, index=True)
