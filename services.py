@@ -1,19 +1,19 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
-
-from database import PizzaDB, RestoranDB, ChefDB, ReviewDB, IngredientDB # type: ignore
+      
+from database import PizzaDB, RestoranDB, ChefDB, ReviewDB, IngredientDB       # type: ignore
 from models import Pizza, SostavPizza, Ingredient, Restoran, PizzaUpdate, Review
 
 
 def pizza_db_to_pydantic(pizza_db: PizzaDB) -> Pizza:
     return Pizza(
-        name=pizza_db.name,# type: ignore
-        cheese=pizza_db.cheese,# type: ignore
-        dough=pizza_db.dough,# type: ignore
+        name=pizza_db.name,      # type: ignore
+        cheese=pizza_db.cheese,      # type: ignore
+        dough=pizza_db.dough,      # type: ignore
         sastav=SostavPizza(
             ingredients=[Ingredient(name=ing.name) for ing in pizza_db.ingredients]
         ),
-        secret_ingr=pizza_db.secret_ingr,# type: ignore
+        secret_ingr=pizza_db.secret_ingr,      # type: ignore
         restaurant=Restoran(
             name=pizza_db.restaurant.name,
             adres=pizza_db.restaurant.adres

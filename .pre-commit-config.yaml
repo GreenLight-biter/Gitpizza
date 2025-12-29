@@ -1,0 +1,21 @@
+repos:
+  - repo: local
+    hooks:
+      - id: no-trailing-spaces
+        name: Fail on trailing whitespace
+        entry: python - <<'EOF'
+import sys, pathlib
+
+bad = False
+for path in sys.argv[1:]:
+    if not path.endswith(('.py', '.txt', '.md')):
+        continue
+    for i, line in enumerate(pathlib.Path(path).read_text(encoding='utf-8', errors='ignore').splitlines(), 1):
+        if line.rstrip('\n\r') != line.rstrip('\n\r ').rstrip():
+            print(f"{path}:{i}: trailing whitespace")
+            bad = True
+
+sys.exit(1 if bad else 0)
+EOF
+        language: system
+        pass_filenames: true

@@ -1,12 +1,16 @@
 from sqlalchemy import create_engine, Column, Integer, String, Text, ForeignKey, Table
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
+import os
 
 
-DATABASE_URL = "postgresql://postgres:123@localhost:5432/Datapizza"
+DATABASE_URL = os.getenv(
+    "DATABASE_URL",
+    "postgresql://postgres:postgres@db:5432/Datapizza"
+)
 
 
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(DATABASE_URL, echo=False)
 
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -61,7 +65,7 @@ class IngredientDB(Base):# type: ignore
 
 
 
-class PizzaDB(Base):# type: ignore
+class PizzaDB(Base):    # type: ignore
     __tablename__ = "pizzas"
     
     id = Column(Integer, primary_key=True, index=True)
@@ -77,7 +81,7 @@ class PizzaDB(Base):# type: ignore
 
 
 
-class ReviewDB(Base):# type: ignore
+class ReviewDB(Base):     # type: ignore
     __tablename__ = "reviews"
     
     id = Column(Integer, primary_key=True, index=True)
@@ -101,7 +105,7 @@ def get_db():
 
 def create_tables():
     Base.metadata.create_all(bind=engine)
-    print("✅ Таблицы успешно созданы!")
+    print("Таблицы успешно созданы!")
 
 
 if __name__ == "__main__":

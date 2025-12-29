@@ -8,4 +8,4 @@ async def home():
     return {"message": "Добро пожаловать в Pizza API!"}
 
 
-app.include_router(router)
+app.include_router(router)    
