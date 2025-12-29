@@ -26,7 +26,7 @@ async def restorany(db: Session = Depends(get_db)):
 
 
 @router.get("/chefs", response_model=List[Chef])
-async def chefi(db: Session = Depends(get_db)):
+def chefi(db: Session = Depends(get_db)):
     chefs = db.query(ChefDB).all()
     return chefs
 
