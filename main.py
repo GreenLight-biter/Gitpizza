@@ -9,7 +9,7 @@ app = FastAPI()
 
 @app.get("/")
 async def home():
-    return {"message": "Добро пожаловать в Pizza API!"}
+    return {"message": "Pizza API работает, это главная страница"}
 
 
 app.include_router(router)    
